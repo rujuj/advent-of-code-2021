@@ -9,7 +9,6 @@ depth = 0
 for line in lines:
     direction, num = line.split(" ")
     num = int(num.strip("\n"))
-    print(direction, num)
 
     # adjust as required 
     if direction == "forward":
