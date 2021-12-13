@@ -28,7 +28,7 @@ for i, num in enumerate(tracker):
     elif num < 0:
         epsilon += power
 
-# print relevant data      
+# print relevant data
 print(gamma)
 print(epsilon)
 print(gamma*epsilon)
