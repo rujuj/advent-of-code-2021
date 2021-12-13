@@ -23,47 +23,43 @@ for line in lines:
         max_y = y2
 
 # initialize the map 
-map = [[0] * (max_y + 1) for _ in range(max_x + 1)]
-# print(map)
-# print(len(map))
-# print(len(map[0]))
+# the row indicates the y value
+# the column indicates the x value 
+map = [[0] * (max_x + 1) for _ in range(max_y + 1)]
 
 # for each set of coordinates, mark the vents with numbers (increment by 1)
-
-# REDO THIS SHIT LOL
-
 for vent in coordinates:
-    print(vent)
-    # if the 2 y-coordinates match, it's a horizontal line
-    if vent[0][0] == vent[1][0]:
-        y = vent[0][0]
-        if vent[0][0] > vent[1][0]:
-            x1 = vent[0][0]
-            x2 = vent[1][0]
-        else:
-            x1 = vent[1][0]
-            x2 = vent[0][0]
-        print(range(x1, x2+1))
-        for x in range(x1, x2 + 1):
-            if map[x][y] == None:
-                map[x][y] = 1
-            else:
-                map[x][y] += 1
-    # if the 2 x-coordinates match, it's a vertical line
-    elif vent[0][1] == vent[1][1]:
-        x = vent[0][1]
-        if vent[1][0] > vent[1][1]:
-            y1 = vent[1][0]
-            y2 = vent[1][1]
-        else:
-            y1 = vent[1][1]
-            y2 = vent[1][0]
-        print(range(y1, y2+1))
+    # split into x1, x2, y1, y2
+    coord1 = vent[0]
+    coord2 = vent[1]
+    # x values match
+    if coord1[0] == coord2[0]:
+        # defaults
+        # print("x not running")
+        x = coord1[0]
+        y1 = coord1[1]
+        y2 = coord2[1]
+        # mark along the range of y values in that column
+        if coord1[1] > coord2[1]:
+             # they need to go backwards
+            y1 = coord2[1]
+            y2 = coord1[1]
+           
         for y in range(y1, y2 + 1):
-            if map[x][y] == None:
-                map[x][y] = 1
-            else:
-                map[x][y] += 1
+            map[y][x] += 1
+
+    elif coord1[1] == coord2[1]:
+        # defaults
+        y = coord1[1]
+        x1 = coord1[0]
+        x2 = coord2[0]
+        if coord1[0] > coord2[0]:
+            # they need to go backwards
+            x1 = coord2[0]
+            x2 = coord1[0]
+        
+        for x in range(x1, x2 + 1):
+            map[y][x] += 1
 
 dangerous = 0
 for row in map:
@@ -71,9 +67,9 @@ for row in map:
         if spot >= 2:
             dangerous += 1
     print(row)
-
 print(dangerous)
 
+# so I did this and then had to re-do the whole thing because I confused myself too much 
+# realized during debugging that I was including input that contained diagonal vents oops
 
-
-# 
+# first attempt: 5442 - correct
